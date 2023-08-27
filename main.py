@@ -39,11 +39,23 @@ for filepath in filepaths:
             pdf.cell(w=float(len(title)) * 3.1, h=10, txt=f"{df[column][index]}", align="L", border=True)
 
     pdf.ln(10)
+    total_price = str(df['total_price'].sum())
     for column in df.columns:
         title = column.replace("_", " ").title()
         if title == "Total Price":
-            pdf.cell(w=float(len(title)) * 3.1, h=10, txt=f"{df['total_price'].sum()}", align="L", border=True)
+            pdf.cell(w=float(len(title)) * 3.1, h=10, txt=total_price, align="L", border=True)
         else:
             pdf.cell(w=float(len(title)) * 3.1, h=10, txt="", align="L", border=True)
+
+# Add Total Sum sentence
+    pdf.ln(15)
+    pdf.set_font("Times", "B", 12)
+    pdf.cell(w=0, h=12, txt=f"The total price of the order is {total_price}")
+
+# Add company logo
+    pdf.ln(9)
+    pdf.set_font("Times", "B", 10)
+    pdf.cell(w=20, h=12, txt="PythonHow")
+    pdf.image('images/pythonhow.png', w=5)
 
     pdf.output(f"./PDFs/{filename}.pdf")
