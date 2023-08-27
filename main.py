@@ -38,4 +38,12 @@ for filepath in filepaths:
             title = column.replace("_", " ").title()
             pdf.cell(w=float(len(title)) * 3.1, h=10, txt=f"{df[column][index]}", align="L", border=True)
 
+    pdf.ln(10)
+    for column in df.columns:
+        title = column.replace("_", " ").title()
+        if title == "Total Price":
+            pdf.cell(w=float(len(title)) * 3.1, h=10, txt=f"{df['total_price'].sum()}", align="L", border=True)
+        else:
+            pdf.cell(w=float(len(title)) * 3.1, h=10, txt="", align="L", border=True)
+
     pdf.output(f"./PDFs/{filename}.pdf")
